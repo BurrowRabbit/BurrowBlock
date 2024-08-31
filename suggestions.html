@@ -49,5 +49,30 @@
     </form>
     
     <div id="status"></div>
+
+    <script>
+        document.getElementById('suggestion-form').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the default form submission
+
+            // Fetch form data
+            var formData = new FormData(this);
+
+            // Send form data using fetch API
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            }).then(function(response) {
+                if (response.ok) {
+                    document.getElementById('status').innerText = 'Thank you for your suggestion!';
+                    // Reset the form
+                    document.getElementById('suggestion-form').reset();
+                } else {
+                    document.getElementById('status').innerText = 'Something went wrong. Please try again.';
+                }
+            }).catch(function(error) {
+                document.getElementById('status').innerText = 'An error occurred: ' + error.message;
+            });
+        });
+    </script>
 </body>
 </html>
