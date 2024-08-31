@@ -19,6 +19,7 @@
         
         <button type="submit">Send Data</button>
     </form>
+    <div id="responseDiv"></div>
 
     <script>
     document.getElementById('dataForm').addEventListener('submit', function(e) {
@@ -36,29 +37,41 @@
         
         console.log('Sending data:', data);
         
-        var scriptUrl = 'https://script.google.com/macros/s/AKfycbw31tk7_4rSI64fXHIVzSzRAJqSJKDBW1Z6iD_cKLFLhD99yLZutTETeEK6gVXG_Mwx/exec?callback=handleResponse';
-        var corsProxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        var scriptUrl = 'https://script.google.com/macros/s/AKfycbwKlZGVAD1LGpvr7lB7cnFk8j_Iz4dr0wTewFbCr_3Z-kCKMICN06pVCC4ajgMA07FB/exec';
         
-        fetch(corsProxyUrl + scriptUrl, {
+        fetch(scriptUrl, {
             method: 'POST',
+            mode: 'no-cors', // This might help with CORS issues
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
         })
-        .then(response => response.json())
+        .then(response => {
+            console.log('Response status:', response.status);
+            console.log('Response:', response);
+            return response.text();
+        })
         .then(result => {
-            console.log('Success:', result);
-            if (result.result === 'success') {
-                alert(result.message || 'Data sent successfully!');
-                document.getElementById('dataForm').reset();
-            } else {
-                alert('Error: ' + (result.message || 'An unknown error occurred'));
+            console.log('Result:', result);
+            document.getElementById('responseDiv').textContent = 'Response: ' + result;
+            try {
+                var jsonResult = JSON.parse(result);
+                if (jsonResult.result === 'success') {
+                    alert(jsonResult.message || 'Data sent successfully!');
+                    document.getElementById('dataForm').reset();
+                } else {
+                    alert('Error: ' + (jsonResult.message || 'An unknown error occurred'));
+                }
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+                alert('Received response, but could not parse it. Check console for details.');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred. Please try again.');
+            document.getElementById('responseDiv').textContent = 'Error: ' + error.message;
+            alert('An error occurred. Please check the console and the response div for details.');
         });
     });
     </script>
