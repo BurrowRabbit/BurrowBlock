@@ -1,36 +1,16 @@
-{
-  "manifest_version": 3,
-  "name": "BurrowBlock",
-  "version": "1.0",
-  "description": "Block distracting websites and redirect to productive sites.",
-  "permissions": [
-    "declarativeNetRequest",
-    "declarativeNetRequestWithHostAccess",
-    "storage",
-    "tabs"
-  ],
-  "background": {
-    "service_worker": "background.js"
-  },
-  "action": {
-    "default_icon": {
-      "16": "images.png",
-      "48": "images.png",
-      "128": "images.png"
-    },
-    "default_popup": "popup.html"
-  },
-  "host_permissions": [
-    "*://*/*"
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": ["README.html", "suggestion.html", "suggestion.js", "urls.html", "urls.js"],
-      "matches": ["<all_urls>"]
-    }
-  ],
-  "author": {
-    "name": "Khushboo Kohli",
-    "email": "khushboo_kohli2025@isb.edu"
-  }
+function trackEvent(action, category, label) {
+    gtag('event', action, {
+        'event_category': category,
+        'event_label': label
+    });
+}
+
+// Example: Track when the extension is installed
+chrome.runtime.onInstalled.addListener(function() {
+    trackEvent('install', 'extension', 'BurrowBlock Installed');
+});
+
+// Example: Track when a specific site is blocked
+function onSiteBlocked(url) {
+    trackEvent('block', 'site', url);
 }
