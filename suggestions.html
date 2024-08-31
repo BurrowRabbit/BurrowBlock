@@ -1,57 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send Data to Google Sheet</title>
-</head>
-<body>
-    <h1>Send Data to Google Sheet</h1>
-    <form id="dataForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" required><br><br>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" required><br><br>
-        
-        <label for="message">Message:</label>
-        <textarea id="message" required></textarea><br><br>
-        
-        <button type="submit">Send Data</button>
-    </form>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Send Data to Google Sheet</title>
+   </head>
+   <body>
+       <h1>Send Data to Google Sheet</h1>
+       <form id="dataForm">
+           <label for="name">Name:</label>
+           <input type="text" id="name" required><br><br>
+           
+           <label for="email">Email:</label>
+           <input type="email" id="email" required><br><br>
+           
+           <label for="message">Message:</label>
+           <textarea id="message" required></textarea><br><br>
+           
+           <button type="submit">Send Data</button>
+       </form>
 
-    <script>
-    document.getElementById('dataForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        var name = document.getElementById('name').value;
-        var email = document.getElementById('email').value;
-        var message = document.getElementById('message').value;
-        
-        var data = {
-            name: name,
-            email: email,
-            message: message
-        };
-        
-        fetch('https://script.google.com/macros/s/AKfycbxjco87sA1Uyw-kUwXNJZpIw-h5RLkHsXJteia1UakAwcWdxq_TkW43_AK6rP5U-0A/exec', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            alert('Data sent successfully!');
-            document.getElementById('dataForm').reset();
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
-        });
-    });
-    </script>
-</body>
-</html>
+       <script>
+       function handleResponse(response) {
+           console.log('Response:', response);
+           if (response.result === 'success') {
+               alert(response.message || 'Data sent successfully!');
+               document.getElementById('dataForm').reset();
+           } else {
+               alert('Error: ' + (response.message || 'An unknown error occurred'));
+           }
+       }
+
+       document.getElementById('dataForm').addEventListener('submit', function(e) {
+           e.preventDefault();
+           
+           var name = document.getElementById('name').value;
+           var email = document.getElementById('email').value;
+           var message = document.getElementById('message').value;
+           
+           console.log('Sending data:', { name, email, message });
+           
+           var script = document.createElement('script');
+           var url = 'https://script.google.com/macros/s/AKfycbzxsGkvnv_QfZZht2y239GyqBG_be6CYCJCSGEImBb7ZCGh4Kb1p7AuYzWl6qxKyQ/exec?callback=handleResponse' + 
+                      '&name=' + encodeURIComponent(name) + 
+                      '&email=' + encodeURIComponent(email) + 
+                      '&message=' + encodeURIComponent(message);
+           
+           console.log('Request URL:', url);
+           
+           script.src = url;
+           document.body.appendChild(script);
+       });
+       </script>
+   </body>
+   </html>
