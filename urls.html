@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> <link rel="icon" href="images.png" type="image/png" sizes="25x25">
-
+<head>
+    <link rel="icon" href="https://burrowrabbit.github.io/BurrowBlock/images.png" type="image/png" sizes="25x25">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BurrowBlock Customize</title>
@@ -13,7 +13,7 @@
             padding: 20px;
             background-color: #f0f4f8;
             color: #2c3e50;
-            font-size: 110%; /* Increase font size by 15% */
+            font-size: 110%;
         }
         .container {
             display: flex;
@@ -45,7 +45,7 @@
         }
         .checkbox {
             margin-right: 10px;
-            transform: scale(1.15); /* Increase checkbox size by 15% */
+            transform: scale(1.15);
         }
         .block-list {
             height: 300px;
@@ -60,7 +60,7 @@
             margin-bottom: 10px;
             border: 1px solid #bdc3c7;
             border-radius: 4px;
-            font-size: inherit; /* Ensure it inherits the increased font size */
+            font-size: inherit;
         }
         .save-button, .save-redirect-button {
             margin-top: 20px;
@@ -72,7 +72,7 @@
             cursor: pointer;
             font-weight: 600;
             transition: background-color 0.3s ease;
-            font-size: inherit; /* Ensure it inherits the increased font size */
+            font-size: inherit;
         }
         .save-button:hover, .save-redirect-button:hover {
             background-color: #2980b9;
@@ -81,14 +81,12 @@
             background-color: #95a5a6;
             cursor: not-allowed;
         }
-        /* Increase icon size by 15% */
         .fas, .fab {
             font-size: 115%;
         }
     </style>
 </head>
 <body>
-    <!-- The rest of the HTML remains unchanged -->
     <div class="container">
         <div class="panel">
             <h3><i class="fas fa-carrot"></i> Rabbit Hole Roster</h3>
@@ -106,8 +104,8 @@
                 <li><input type="checkbox" class="checkbox" value="discord.com"> <i class="fab fa-discord"></i> Discord</li>
                 <li><input type="checkbox" class="checkbox" value="facebook.com"> <i class="fab fa-facebook"></i> Facebook</li>
             </ul>
-    <button id="save-block-button" class="save-button"><i class="fas fa-save"></i> Save Block List</button>
-    <p id="modification-note"></p>
+            <button id="save-block-button" class="save-button"><i class="fas fa-save"></i> Save Block List</button>
+            <p id="modification-note"></p>
         </div>
 
         <div class="panel block-list">
@@ -132,6 +130,6 @@
         </div>
     </div>
 
-    <script src="urls.js"></script>
+    <script src="https://burrowrabbit.github.io/BurrowBlock/urls.js"></script>
 </body>
 </html>
