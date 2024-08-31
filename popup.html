@@ -1,159 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="https://burrowrabbit.github.io/BurrowBlock/images.png" type="image/png" sizes="25x25">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BurrowBlock</title>
+    <title>BurrowBlock Popup</title>
+    <link rel="icon" href="https://burrowrabbit.github.io/BurrowBlock/images.png" type="image/png" sizes="25x25">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
             padding: 20px;
-            width: 300px;
             background-color: #f0f4f8;
             color: #2c3e50;
+            font-size: 110%;
         }
-        .header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        h3 {
-            margin: 0;
-            font-weight: 600;
-            color: #34495e;
-        }
-        .icon {
-            margin-right: 10px;
-            color: #3498db;
-        }
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        h1 {
+            font-size: 24px;
         }
         button {
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 12px;
+            margin-top: 10px;
+            padding: 10px 20px;
             background-color: #3498db;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+        button img {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
         }
         button:hover {
             background-color: #2980b9;
-            transform: translateY(-2px);
-        }
-        button i {
-            margin-right: 8px;
-        }
-        #password-container {
-            margin-top: 10px;
-            display: none;
-        }
-        #password-input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 5px;
-            border: 1px solid #bdc3c7;
-            border-radius: 4px;
-        }
-        #submit-password {
-            width: 100%;
-            padding: 8px;
-            background-color: #2ecc71;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        #submit-password:hover {
-            background-color: #27ae60;
-        }
-        .stats {
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #7f8c8d;
-        }
-        .links {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8em;
-        }
-        .links a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        .links a:hover {
-            text-decoration: underline;
-        }
-        #disable-countdown {
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #e74c3c;
-        }
-        #floating-message {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 1000;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🐰 BurrowBlock</h1>
-    </div>
-    
-    <div class="button-container">
-        <button id="toggle-extension">
-            <img id="toggle-image" style="width: 15px; height: 15px; margin-left: 5px;margin-right: 5px;">
-            <span id="toggle-text">Enable</span>
-        </button>
-        <div id="password-container">
-            <img id="passcode-image" src="https://burrowrabbit.github.io/BurrowBlock/passcode.jpeg" style="display: none; width: 100%; margin-bottom: 15px;">
-            <input type="password" id="password-input" placeholder="Enter password to disable">
-            <button id="submit-password">Submit</button>
-            <p>Disables remaining for today: <span id="disables-remaining">3</span> / <span id="max-disables">3</span></p>
-        </div>
+    <h1>BurrowBlock</h1>
+    <button id="toggle-extension">
+        <img id="toggle-image" src="https://burrowrabbit.github.io/BurrowBlock/en.png" alt="Status Icon">
+        <span id="toggle-text">Enable</span>
+    </button>
+    <button id="customize-button">Customize</button>
 
-        <button id="customize">
-            <i class="fas fa-cog"></i>
-            Customize
-        </button>
-    </div>
-    
-    <div id="floating-message">
-        Yeah, I won't let you get away with Ctrl+C Ctrl+V
-    </div>
+    <script src="popup.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButton = document.getElementById('toggle-extension');
+            const toggleImage = document.getElementById('toggle-image');
+            const toggleText = document.getElementById('toggle-text');
+            const customizeButton = document.getElementById('customize-button');
 
-    <div id="disable-countdown" style="display: none;">
-        Auto-enable in: <span id="countdown-timer">45:00</span>
-    </div>
-        
-    <div class="links">
-        <a href="https://burrowrabbit.github.io/BurrowBlock/readme.html" id="help-link" target="_blank">
-            <i class="fas fa-question-circle"></i> Help and FAQs
-        </a>
-        <a href="https://burrowrabbit.github.io/BurrowBlock/suggestions.html" id="feedback-link" target="_blank">
-            <i class="fas fa-comment"></i> Have a suggestion?
-        </a>
-    </div>
+            chrome.storage.local.get(['isEnabled'], function(result) {
+                const isEnabled = result.isEnabled !== false; // Default to true if not set
+                if (isEnabled) {
+                    toggleImage.src = "https://burrowrabbit.github.io/BurrowBlock/dis.png";
+                    toggleText.textContent = "Disable";
+                } else {
+                    toggleImage.src = "https://burrowrabbit.github.io/BurrowBlock/en.png";
+                    toggleText.textContent = "Enable";
+                }
+            });
 
-    <script src="https://burrowrabbit.github.io/BurrowBlock/popup.js"></script>
+            toggleButton.addEventListener('click', function() {
+                chrome.storage.local.get(['isEnabled'], function(result) {
+                    const isEnabled = result.isEnabled !== false;
+                    const newStatus = !isEnabled;
+                    chrome.storage.local.set({ isEnabled: newStatus }, function() {
+                        if (newStatus) {
+                            toggleImage.src = "https://burrowrabbit.github.io/BurrowBlock/dis.png";
+                            toggleText.textContent = "Disable";
+                        } else {
+                            toggleImage.src = "https://burrowrabbit.github.io/BurrowBlock/en.png";
+                            toggleText.textContent = "Enable";
+                        }
+                        chrome.runtime.sendMessage({ type: 'toggleExtension', isEnabled: newStatus });
+                    });
+                });
+            });
+
+            customizeButton.addEventListener('click', function() {
+                chrome.tabs.create({ url: 'https://burrowrabbit.github.io/BurrowBlock/urls.html' });
+            });
+        });
+    </script>
 </body>
 </html>
