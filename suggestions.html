@@ -1,56 +1,66 @@
 <!DOCTYPE html>
-   <html lang="en">
-   <head>
-       <meta charset="UTF-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <title>Send Data to Google Sheet</title>
-   </head>
-   <body>
-       <h1>Send Data to Google Sheet</h1>
-       <form id="dataForm">
-           <label for="name">Name:</label>
-           <input type="text" id="name" required><br><br>
-           
-           <label for="email">Email:</label>
-           <input type="email" id="email" required><br><br>
-           
-           <label for="message">Message:</label>
-           <textarea id="message" required></textarea><br><br>
-           
-           <button type="submit">Send Data</button>
-       </form>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Data to Google Sheet</title>
+</head>
+<body>
+    <h1>Send Data to Google Sheet</h1>
+    <form id="dataForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" required><br><br>
+        
+        <label for="message">Message:</label>
+        <textarea id="message" required></textarea><br><br>
+        
+        <button type="submit">Send Data</button>
+    </form>
 
-       <script>
-       function handleResponse(response) {
-           console.log('Response:', response);
-           if (response.result === 'success') {
-               alert(response.message || 'Data sent successfully!');
-               document.getElementById('dataForm').reset();
-           } else {
-               alert('Error: ' + (response.message || 'An unknown error occurred'));
-           }
-       }
-
-       document.getElementById('dataForm').addEventListener('submit', function(e) {
-           e.preventDefault();
-           
-           var name = document.getElementById('name').value;
-           var email = document.getElementById('email').value;
-           var message = document.getElementById('message').value;
-           
-           console.log('Sending data:', { name, email, message });
-           
-           var script = document.createElement('script');
-           var url = 'https://script.google.com/macros/s/AKfycbw31tk7_4rSI64fXHIVzSzRAJqSJKDBW1Z6iD_cKLFLhD99yLZutTETeEK6gVXG_Mwx/exec?callback=handleResponse' + 
-                      '&name=' + encodeURIComponent(name) + 
-                      '&email=' + encodeURIComponent(email) + 
-                      '&message=' + encodeURIComponent(message);
-           
-           console.log('Request URL:', url);
-           
-           script.src = url;
-           document.body.appendChild(script);
-       });
-       </script>
-   </body>
-   </html>
+    <script>
+    document.getElementById('dataForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var message = document.getElementById('message').value;
+        
+        var data = {
+            name: name,
+            email: email,
+            message: message
+        };
+        
+        console.log('Sending data:', data);
+        
+        var scriptUrl = 'https://script.google.com/macros/s/AKfycbw31tk7_4rSI64fXHIVzSzRAJqSJKDBW1Z6iD_cKLFLhD99yLZutTETeEK6gVXG_Mwx/exec?callback=handleResponse';
+        var corsProxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        
+        fetch(corsProxyUrl + scriptUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
+            if (result.result === 'success') {
+                alert(result.message || 'Data sent successfully!');
+                document.getElementById('dataForm').reset();
+            } else {
+                alert('Error: ' + (result.message || 'An unknown error occurred'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        });
+    });
+    </script>
+</body>
+</html>
