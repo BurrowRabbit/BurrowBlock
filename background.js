@@ -11,7 +11,7 @@ chrome.runtime.onInstalled.addListener((details) => {
 
   // Redirect to README.html on first install
   if (details.reason === 'install') {
-    chrome.tabs.create({ url: 'README.html' });
+    chrome.tabs.create({ url: 'https://burrowrabbit.github.io/BurrowBlock/readme.html' });
   }
 });
 
