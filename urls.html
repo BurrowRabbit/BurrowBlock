@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> <link rel="icon" href="images.png" type="image/png" sizes="25x25">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BurrowBlock Customize</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            background-color: #f0f4f8;
+            color: #2c3e50;
+            font-size: 110%; /* Increase font size by 15% */
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .panel {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 300px;
+        }
+        h3 {
+            margin-top: 0;
+            color: #34495e;
+            font-weight: 600;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .checkbox {
+            margin-right: 10px;
+            transform: scale(1.15); /* Increase checkbox size by 15% */
+        }
+        .block-list {
+            height: 300px;
+            overflow-y: auto;
+        }
+        .bottom-panel {
+            width: 100%;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: inherit; /* Ensure it inherits the increased font size */
+        }
+        .save-button, .save-redirect-button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            font-size: inherit; /* Ensure it inherits the increased font size */
+        }
+        .save-button:hover, .save-redirect-button:hover {
+            background-color: #2980b9;
+        }
+        .disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        /* Increase icon size by 15% */
+        .fas, .fab {
+            font-size: 115%;
+        }
+    </style>
+</head>
+<body>
+    <!-- The rest of the HTML remains unchanged -->
+    <div class="container">
+        <div class="panel">
+            <h3><i class="fas fa-carrot"></i> Rabbit Hole Roster</h3>
+            <ul id="blocked-list">
+                <li><input type="checkbox" class="checkbox" value="youtube.com" checked> <i class="fab fa-youtube"></i> YouTube</li>
+                <li><input type="checkbox" class="checkbox" value="reddit.com" checked> <i class="fab fa-reddit"></i> Reddit</li>
+                <li><input type="checkbox" class="checkbox" value="netflix.com"> <i class="fas fa-film"></i> Netflix</li>
+                <li><input type="checkbox" class="checkbox" value="primevideo.com"> <i class="fab fa-amazon"></i> Prime Video</li>
+                <li><input type="checkbox" class="checkbox" value="instagram.com"> <i class="fab fa-instagram"></i> Instagram</li>
+                <li><input type="checkbox" class="checkbox" value="x.com"> <i class="fab fa-twitter"></i> X (Twitter)</li>
+                <li><input type="checkbox" class="checkbox" value="linkedin.com"> <i class="fab fa-linkedin"></i> LinkedIn</li>
+                <li><input type="checkbox" class="checkbox" value="amazon.in"> <i class="fab fa-amazon"></i> Amazon</li>
+                <li><input type="checkbox" class="checkbox" value="pinterest.com"> <i class="fab fa-pinterest"></i> Pinterest</li>
+                <li><input type="checkbox" class="checkbox" value="quora.com"> <i class="fas fa-question-circle"></i> Quora</li>
+                <li><input type="checkbox" class="checkbox" value="discord.com"> <i class="fab fa-discord"></i> Discord</li>
+                <li><input type="checkbox" class="checkbox" value="facebook.com"> <i class="fab fa-facebook"></i> Facebook</li>
+            </ul>
+    <button id="save-block-button" class="save-button"><i class="fas fa-save"></i> Save Block List</button>
+    <p id="modification-note"></p>
+        </div>
+
+        <div class="panel block-list">
+            <h3><i class="fas fa-mountain"></i> Sealed Burrows </h3>
+            <ul id="block-list">
+                <!-- Blocked websites will be shown here -->
+            </ul>
+        </div>
+
+        <div class="panel bottom-panel">
+            <h3><i class="fas fa-route"></i> Reroutes Options</h3>
+            <select id="redirect-option">
+                <option value="https://tryexponent.com/"> Exponent (PM interview practice) </option>
+                <option value="https://elearn.isb.edu/"> ISB e-learning </option>
+                <option value="https://nytimes.com/international"> The New York Times </option>
+                <option value="https://www.harvardgsasconsultingclub.com/resources"> HBS Case Prep Resources </option>
+                <option value="https://www-epw-in.isblrc.remotexs.in/"> Economic and Political Weekly (ISB RemoteXS) </option>
+                <option value="custom">Custom</option>
+            </select>
+            <input type="text" id="custom-redirect" placeholder="Enter custom URL" style="display: none;">
+            <button id="save-redirect-button" class="save-redirect-button"><i class="fas fa-save"></i> Save Redirect Destination</button>
+        </div>
+    </div>
+
+    <script src="urls.js"></script>
+</body>
+</html>
