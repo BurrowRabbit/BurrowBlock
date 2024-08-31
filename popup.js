@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateUI(isEnabled, disableCount) {
         toggleText.textContent = isEnabled ? 'Disable' : 'Enable';
-    document.getElementById('toggle-image').src = isEnabled ? 'dis.png' : 'en.png';
+        document.getElementById('toggle-image').src = isEnabled ? 'https://burrowrabbit.github.io/BurrowBlock/dis.png' : 'https://burrowrabbit.github.io/BurrowBlock/en.png';
         passwordContainer.style.display = 'none';
         disablesRemaining.textContent = 3 - disableCount;
     }
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 toggleExtension(true);
             } else if (disableCount < 3) {
                 passwordContainer.style.display = 'block';
-document.getElementById('passcode-image').style.display = 'block';
+                document.getElementById('passcode-image').style.display = 'block';
             } else {
                 alert('You have reached the limit of 3 disables per day.');
             }
@@ -99,7 +99,7 @@ document.getElementById('passcode-image').style.display = 'block';
     });
 
     customizeButton.addEventListener('click', () => {
-        chrome.tabs.create({ url: 'urls.html' });
+        chrome.tabs.create({ url: 'https://burrowrabbit.github.io/BurrowBlock/urls.html' });
     });
 
     chrome.storage.local.get(['isEnabled', 'disableCount', 'blockedCount'], (result) => {
