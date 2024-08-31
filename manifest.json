@@ -15,23 +15,14 @@
   },
   "action": {
     "default_icon": {
-      "16": "images.png",
-      "48": "images.png",
-      "128": "images.png"
+      "16": "https://burrowrabbit.github.io/BurrowBlock/images.png",
+      "48": "https://burrowrabbit.github.io/BurrowBlock/images.png",
+      "128": "https://burrowrabbit.github.io/BurrowBlock/images.png"
     },
-    "default_popup": "popup.html"
+    "default_popup": "https://burrowrabbit.github.io/BurrowBlock/popup.html"
   },
   "host_permissions": [
     "*://*/*"
   ],
-  "web_accessible_resources": [
-    {
-      "resources": ["README.html", "suggestion.html", "suggestion.js", "urls.html", "urls.js"],
-      "matches": ["<all_urls>"]
-    }
-  ],
-  "author": {
-    "name": "Khushboo Kohli",
-    "email": "khushboo_kohli2025@isb.edu"
-  }
+  "web_accessible_resources": []
 }
