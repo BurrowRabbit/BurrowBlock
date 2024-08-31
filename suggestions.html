@@ -1,56 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suggestions</title>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            padding: 20px;
-            background-color: #f0f4f8;
-            color: #2c3e50;
-            font-size: 100%;
-        }
-        label, input, textarea, button {
-            display: block;
-            width: 100%;
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #bdc3c7;
-            border-radius: 4px;
-            font-size: inherit;
-        }
-        button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-    </style>
-</head>
-<body>
-    <h1>🐰 BurrowBlock v1.0</h1>
-    <h2><em>Send me a suggestion! </em></h2>
-    <form id="suggestion-form">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="(Optional)">
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="(Optional)">
-        
-        <label for="message">Your Suggestion:</label>
-        <textarea id="message" name="message" placeholder="Type your suggestion here..." rows="5" required></textarea>
-        
-        <button type="submit">Send</button>
-    </form>
-    
-    <div id="status"></div>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Send Data to Google Sheet</title>
+   </head>
+   <body>
+       <h1>Send Data to Google Sheet</h1>
+       <form id="dataForm">
+           <label for="name">Name:</label>
+           <input type="text" id="name" required><br><br>
+           
+           <label for="email">Email:</label>
+           <input type="email" id="email" required><br><br>
+           
+           <label for="message">Message:</label>
+           <textarea id="message" required></textarea><br><br>
+           
+           <button type="submit">Send Data</button>
+       </form>
 
-     <script>
+       <script>
        document.getElementById('dataForm').addEventListener('submit', function(e) {
            e.preventDefault();
            
@@ -64,7 +34,7 @@
                message: message
            };
            
-           fetch('https://script.google.com/macros/s/AKfycbzxsGkvnv_QfZZht2y239GyqBG_be6CYCJCSGEImBb7ZCGh4Kb1p7AuYzWl6qxKyQ/exec', {
+           fetch('YOUR_WEB_APP_URL_HERE', {
                method: 'POST',
                mode: 'no-cors',
                cache: 'no-cache',
@@ -83,5 +53,5 @@
            });
        });
        </script>
-</body>
-</html>
+   </body>
+   </html>
