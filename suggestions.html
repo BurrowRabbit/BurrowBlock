@@ -50,29 +50,38 @@
     
     <div id="status"></div>
 
-    <script>
-        document.getElementById('suggestion-form').addEventListener('submit', function(event) {
-            event.preventDefault();  // Prevent the default form submission
-
-            // Fetch form data
-            var formData = new FormData(this);
-
-            // Send form data using fetch API
-            fetch('https://script.google.com/macros/s/AKfycbzibuvYKaoNCZue8rcVDcTi1xqiGHcn1ams80JwSwEmmhOoyMiOEsqD13e-hnYSxUt_lg/exec', {
-                method: 'POST',
-                body: formData
-            }).then(function(response) {
-                if (response.ok) {
-                    document.getElementById('status').innerText = 'Thank you for your suggestion!';
-                    // Reset the form
-                    document.getElementById('suggestion-form').reset();
-                } else {
-                    document.getElementById('status').innerText = 'Something went wrong. Please try again.';
-                }
-            }).catch(function(error) {
-                document.getElementById('status').innerText = 'An error occurred: ' + error.message;
-            });
-        });
-    </script>
+     <script>
+       document.getElementById('dataForm').addEventListener('submit', function(e) {
+           e.preventDefault();
+           
+           var name = document.getElementById('name').value;
+           var email = document.getElementById('email').value;
+           var message = document.getElementById('message').value;
+           
+           var data = {
+               name: name,
+               email: email,
+               message: message
+           };
+           
+           fetch('https://script.google.com/macros/s/AKfycbzxsGkvnv_QfZZht2y239GyqBG_be6CYCJCSGEImBb7ZCGh4Kb1p7AuYzWl6qxKyQ/exec', {
+               method: 'POST',
+               mode: 'no-cors',
+               cache: 'no-cache',
+               headers: {
+                   'Content-Type': 'application/json',
+               },
+               body: JSON.stringify(data)
+           })
+           .then(response => {
+               alert('Data sent successfully!');
+               document.getElementById('dataForm').reset();
+           })
+           .catch(error => {
+               console.error('Error:', error);
+               alert('An error occurred. Please try again.');
+           });
+       });
+       </script>
 </body>
 </html>
