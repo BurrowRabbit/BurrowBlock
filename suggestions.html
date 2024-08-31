@@ -32,11 +32,10 @@
         }
     </style>
 </head>
-    <h1>🐰 BurrowBlock v1.0</h1>
-
 <body>
+    <h1>🐰 BurrowBlock v1.0</h1>
     <h2><em>Send me a message! </em></h2>
-    <form id="suggestion-form">
+    <form id="suggestion-form" action="https://script.google.com/macros/s/AKfycbyLoSETbE8WnHRCO28RDx6P84u66iBCC_Pxhs0rm7yYZoGjnhdDkuAIlke3bv7sgW18xg/exec" method="POST">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" placeholder="(Optional)">
         
@@ -46,11 +45,9 @@
         <label for="message">Your Message:</label>
         <textarea id="message" name="message" placeholder="Type your suggestion here..." rows="5" required></textarea>
         
-        <button type="submit"><i class="fa-solid fa-paper-plane"></i>  Send</button>
+        <button type="submit">Send</button>
     </form>
     
     <div id="status"></div>
-    
-    <script src="suggestions.js"></script>
 </body>
 </html>
