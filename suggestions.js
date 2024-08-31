@@ -5,7 +5,7 @@ document.getElementById('suggestion-form').addEventListener('submit', function(e
     const email = document.getElementById('email').value.trim();
     const message = document.getElementById('message').value.trim();
     
-    const mailtoLink = `mailto:?subject=Suggestion%20fromthekkohli@gmail.com%20Extension&body=${encodeURIComponent(message)}${email ? `%0D%0A%0D%0AFrom: ${encodeURIComponent(name)} (${encodeURIComponent(email)})` : ''}`;
+    const mailtoLink = `mailto:thekkohli@gmail.com?subject=Suggestion%20from%20BurrowBlock%20Extension&body=${encodeURIComponent(message)}${email ? `%0D%0A%0D%0AFrom: ${encodeURIComponent(name)} (${encodeURIComponent(email)})` : ''}`;
     
     // Open the mail client with the provided details
     window.location.href = mailtoLink;
